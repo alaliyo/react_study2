@@ -3,17 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Auth from '../pages/Auth'
 import Home from '../pages/Home';
 
-function AppRouter() {
-    const [loggedIn, setLoggedIn] = useState(true);
+function AppRouter({loggedIn}) {
 
     return <Router>
         <Switch>
             {loggedIn ?
-                <>
-                    <Route path='/'>
-                        <Home />
-                    </Route>
-                </> 
+                <Route path='/'>
+                    <Home />
+                </Route>
                 : 
                 <Route path='/'>
                     <Auth />
