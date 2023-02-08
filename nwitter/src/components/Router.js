@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Auth from '../pages/Auth'
 import Home from '../pages/Home';
