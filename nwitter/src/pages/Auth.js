@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
     getAuth,
     signInWithEmailAndPassword,
@@ -15,6 +15,7 @@ function Ayth() {
         const {
             target: { name, value },
         } = e;
+
         if (name === "email") {
             setEmail(value);
         } else if (name === "password") {
@@ -35,12 +36,17 @@ function Ayth() {
             console.log(data);
         } catch (error) {
             const message = error.message;
+            console.log(message);
             if (message === "Firebase: Error (auth/invalid-email).") {
                 setErrors("아이디를 이메일 형태로 입력해주세요");
             } else if (message === "Firebase: Password should be at least 6 characters (auth/weak-password).") {
                 setErrors("비밀번호를 6자리 이상 입력해 주세요");
             } else if (message === "Firebase: Error (auth/email-already-in-use).") {
                 setErrors("이미 사용중인 아이디입니다.")
+            } else if (message === "Firebase: Error (auth/user-not-found).") {
+                setErrors("아이디가 틀렸습니다."); 
+            } else if (message === "Firebase: Error (auth/wrong-password).") {
+                setErrors("비밀번호가 틀렸습니다.")
             }
         }
     };
@@ -54,7 +60,7 @@ function Ayth() {
                 <input name="password" type="password" placeholder="Password" required value={password} onChange={onChange} />
                 <input type="submit" value={newAccount ? "계정 생성" : "로그인" } />
             </form>
-            {errors}
+            <div>{errors}</div>
             <span onClick={toggleAccount}> {newAccount ? "로그인" : "계정 생성" }</span>
         </div>
     );
